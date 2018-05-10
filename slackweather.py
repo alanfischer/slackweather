@@ -37,6 +37,8 @@ icon_to_emoji = {
 }
 
 request = requests.get("http://api.wunderground.com/api/" + wunderground_key + "/conditions/q/" + location + ".json")
+if request.status_code != 200:
+	print(request.json())
 
 current_observation = request.json()['current_observation']
 
@@ -50,3 +52,5 @@ profile = {
 }
 
 request = requests.get("http://slack.com/api/users.profile.set", params = { 'token' : slack_key, 'user' : user, 'profile' : json.dumps(profile) })
+if request.status_code != 200:
+	print(request.json())
